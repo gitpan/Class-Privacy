@@ -4,7 +4,7 @@ use strict;
 
 require 5.006001; # Overloading %{} et alia doesn't work before this.
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 sub import {
     my $class = shift;
@@ -51,23 +51,32 @@ to your class:
 
     use Class::Privacy;
 
-This denies any attempts of direct access to your objects, no outside
-class can dereference your blessed references, only the class itself
-can do it.  For outsiders the only allowed access is through the
-methods defined in the class.
+This disallows any outside attempts to directly access (dereference)
+the inner parts of the objects, only the class itself can do it.
+For outsiders the only allowed access is through the methods defined
+in the class.
+
+This is what happens if an outsider tries to access the innards of
+the objects:
+
+    Cannot dereference 'NoPeeking' object at ...
 
 The denial of access includes even derived classes.  In other words,
-it is what most OO languages call "private".
+this is what most object-oriented languages call I<private>.
 
-There is no way to have "protected", "package", "friend" or any other
-privacy levels.  This can be considered to be a feature, not a bug.
+There is no way to have I<protected>, I<package>, I<friend> or any
+other privacy levels.  This can be considered to be a feature, not
+a bug.
 
 =head1 IMPLEMENTATION
 
-The Class:Privacy relies on overloading of the dereferencers
-%{}, @{}, and ${}.  This didn't work properly before Perl 5.6.1. 
-This also means that you cannot have your own overloads for these
-operations for your objects, but you can still have other overloads.
+The Class:Privacy relies on overloading of the dereferencers %{}, @{},
+and ${} (and &{}, just in case).  Overloading those operations didn't
+work properly before Perl 5.6.1.  This also means that you cannot have
+your own overloads for these operations for your objects, but you can
+still have other overloaded operations.
+
+The protection is probably not foolproof since fools are so ingenious.
 
 =head1 AUTHOR
 
