@@ -4,7 +4,7 @@ use strict;
 
 require 5.006001; # Overloading %{} et alia doesn't work before this.
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 sub import {
     my $class = shift;

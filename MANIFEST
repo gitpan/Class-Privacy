@@ -8,4 +8,6 @@ t/01allow.t
 t/02deny.t
 t/03denyfile.t
 t/04denyderi.t
+t/P.pm
+t/Q.pm
 
